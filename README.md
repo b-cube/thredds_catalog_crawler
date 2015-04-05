@@ -1,5 +1,21 @@
-thredds_crawler
-===============
+thredds_catalog_crawler
+=======================
+
+An expanded crawler for THREDDS Catalog Services. Our focus is on capturing the entire catalog service tree starting from any node within it. 
+
+Planned revisions:
+
+- [ ] Explicitly capturing the catalog reference elements.
+- [ ] Updates to work against a number of Catalog Service versions and implementations.
+- [ ] Adding the ability to start at any valid node URL and generate the entire tree.
+- [ ] Improved metadata reference handling.
+
+This is a work in progress so bear with us.
+
+
+
+From the Original ASA Science Source (Thanks!)
+----------------------------------------------
 
 A simple crawler/parser for THREDDS catalogs
 

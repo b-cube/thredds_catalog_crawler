@@ -23,6 +23,7 @@ logger = logging.getLogger("thredds_crawler")
 logger.addHandler(NullHandler())
 
 
+
 class Crawl(object):
 
     SKIPS = [".*files.*", ".*Individual Files.*", ".*File_Access.*", ".*Forecast Model Run.*", ".*Constant Forecast Offset.*", ".*Constant Forecast Date.*"]
@@ -109,6 +110,13 @@ class Crawl(object):
             else:
                 logger.debug("Processing %s" % gid)
                 yield "%s?dataset=%s" % (url, gid)
+
+class CatalogRef(object):
+    def __init_(self):
+        self.id = None
+
+    def __repr__(self):
+        return "<CatalogRef id: %s, name: %s, services: %s>" % (self.id, self.name, str([s.get("service") for s in self.services]))    
 
 
 class LeafDataset(object):

@@ -27,12 +27,12 @@ class Crawl(object):
 
     # TODO: this is super specific
     SKIPS = [
-        ".*files.*",
-        ".*Individual Files.*",
-        ".*File_Access.*",
-        ".*Forecast Model Run.*",
-        ".*Constant Forecast Offset.*",
-        ".*Constant Forecast Date.*"
+        # ".*files.*",
+        # ".*Individual Files.*",
+        # ".*File_Access.*",
+        # ".*Forecast Model Run.*",
+        # ".*Constant Forecast Offset.*",
+        # ".*Constant Forecast Date.*"
     ]
 
     def __init__(self, catalog_url, select=None, skip=None, debug=None):
@@ -91,7 +91,6 @@ class Crawl(object):
             if status_code in [200, 304]:
                 founds.append(route)
 
-        # return the the shortest url
         return self.catalog_url if not founds else min(founds)
 
     def _run(self, url):

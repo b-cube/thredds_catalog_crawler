@@ -25,6 +25,7 @@ logger.addHandler(NullHandler())
 
 class Crawl(object):
 
+    # TODO: this is super specific
     SKIPS = [
         ".*files.*",
         ".*Individual Files.*",
@@ -48,6 +49,8 @@ class Crawl(object):
             ch.setFormatter(formatter)
             logger.addHandler(ch)
 
+        self.catalog_url = catalog_url
+
         # Only process these dataset IDs
         if select is not None:
             select = map(lambda x: re.compile(x), select)
@@ -60,8 +63,36 @@ class Crawl(object):
         self.skip = map(lambda x: re.compile(x), skip)
 
         self.visited = []
-        datasets = [LeafDataset(url) for url in self._run(url=catalog_url) if url is not None]
-        self.datasets = filter(lambda x: x.id is not None, datasets)
+        # datasets = [LeafDataset(url) for url in self._run(url=catalog_url) if url is not None]
+        # self.datasets = filter(lambda x: x.id is not None, datasets)
+
+    def _find_root_url(self):
+        '''
+        before parsing the larger tree, check that the catalog_url
+        is the root node - return the shortest url that's good
+        '''
+
+        parts = urlparse.urlparse(self.catalog_url)
+        route_parts = parts.path.split('/')
+        route_parts = [r for r in route_parts if r and r != 'catalog.xml']
+
+        founds = []
+        for i in xrange(len(route_parts) + 1):
+            route = urlparse.urlunparse(
+                (parts.scheme,
+                 parts.netloc,
+                 '/'.join(route_parts[:len(route_parts) - i] + ['catalog.xml']),
+                 parts.params,
+                 parts.query,
+                 parts.fragment)
+            )
+            req = requests.head(route)
+            status_code = req.status_code
+            if status_code in [200, 304]:
+                founds.append(route)
+
+        # return the the shortest url
+        return self.catalog_url if not founds else min(founds)
 
     def _run(self, url):
         if url in self.visited:
@@ -132,8 +163,18 @@ class CatalogRef(object):
 
     @property
     def href(self):
+        parts = urlparse.urlparse(self.href_path)
+        if parts.scheme and parts.netloc:
+            # it's a valid url, do nothing
+            return self.href_path
+
+        parts = urlparse.urlparse(self.parent_url)
+
         # just a basic urljoin
-        return urlparse.urljoin(self.parent_url.replace('catalog.xml', ''), self.href_path)
+        if self.parent_type == 'dataset':
+            return urlparse.urljoin(self.parent_url.replace('catalog.xml', ''), self.href_path)
+        else:
+            pass
 
     def follow(self):
         req = requests.get(self.href)
@@ -147,7 +188,7 @@ class ParentDataset(object):
     contain catalogRefs, children datasets (likely terminal nodes)
     or a metadata blob
 
-    this object won't have its own url
+    this object won't have its own url (should be tied to the catalogRef URL parent)
     '''
     def __init__(self, parent_url):
         self.id = None
@@ -184,7 +225,8 @@ class LeafDataset(object):
             self.metadata = dataset.find("{%s}metadata" % INV_NS)
             self.catalog_url = dataset_url.split("?")[0]
 
-            # Data Size - http://www.unidata.ucar.edu/software/thredds/current/tds/catalog/InvCatalogSpec.html#dataSize
+            # Data Size - http://www.unidata.ucar.edu/software/thredds/current/tds/
+            #                   catalog/InvCatalogSpec.html#dataSize
             data_size = dataset.find("{%s}dataSize" % INV_NS)
             if data_size is not None:
                 self.data_size = float(data_size.text)
@@ -208,19 +250,9 @@ class LeafDataset(object):
             for service in tree.findall(".//{%s}service[@name='%s']" % (INV_NS, service_name)):
                 if service.get("serviceType") == "Compound":
                     for s in service.findall("{%s}service" % INV_NS):
-                        url = construct_url(dataset_url, s.get('base')) + dataset.get("urlPath")
-                        if s.get("suffix") is not None:
-                            url += s.get("suffix")
-                        # ISO like services need additional parameters
-                        if s.get('name') in ["iso", "ncml", "uddc"]:
-                            url += "?dataset=%s&catalog=%s" % (self.id, urllib.quote_plus(self.catalog_url))
-                        self.services.append({'name': s.get('name'), 'service': s.get('serviceType'), 'url': url})
+                        url = ''
                 else:
-                    url = construct_url(dataset_url, service.get('base')) + dataset.get("urlPath") + service.get("suffix", "")
-                    # ISO like services need additional parameters
-                    if s.get('name') in ["iso", "ncml", "uddc"]:
-                            url += "?dataset=%s&catalog=%s" % (self.id, urllib.quote_plus(self.catalog_url))
-                    self.services.append({'name': service.get('name'), 'service': service.get('serviceType'), 'url' : url})
+                    url = ''
 
     def follow(self):
         # TODO: run the head requests for the service + urlPath

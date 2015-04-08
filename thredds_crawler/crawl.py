@@ -23,10 +23,16 @@ logger = logging.getLogger("thredds_crawler")
 logger.addHandler(NullHandler())
 
 
-
 class Crawl(object):
 
-    SKIPS = [".*files.*", ".*Individual Files.*", ".*File_Access.*", ".*Forecast Model Run.*", ".*Constant Forecast Offset.*", ".*Constant Forecast Date.*"]
+    SKIPS = [
+        ".*files.*",
+        ".*Individual Files.*",
+        ".*File_Access.*",
+        ".*Forecast Model Run.*",
+        ".*Constant Forecast Offset.*",
+        ".*Constant Forecast Date.*"
+    ]
 
     def __init__(self, catalog_url, select=None, skip=None, debug=None):
         """
@@ -53,7 +59,7 @@ class Crawl(object):
             skip = Crawl.SKIPS
         self.skip = map(lambda x: re.compile(x), skip)
 
-        self.visited  = []
+        self.visited = []
         datasets = [LeafDataset(url) for url in self._run(url=catalog_url) if url is not None]
         self.datasets = filter(lambda x: x.id is not None, datasets)
 
@@ -111,23 +117,59 @@ class Crawl(object):
                 logger.debug("Processing %s" % gid)
                 yield "%s?dataset=%s" % (url, gid)
 
+
 class CatalogRef(object):
-    def __init_(self):
+    def __init_(self, parent_url, href_path):
         self.id = None
+        self.name = None
+        self.parent_url = parent_url
+        self.href_path = href_path
 
     def __repr__(self):
-        return "<CatalogRef id: %s, name: %s, services: %s>" % (self.id, self.name, str([s.get("service") for s in self.services]))    
+        return "<CatalogRef id: %s, name: %s>" % (self.id, self.name)
+
+    # TODO: url generation = parent path urljoin with href
+
+    @property
+    def href(self):
+        # just a basic urljoin
+        return urlparse.urljoin(self.parent_url.replace('catalog.xml', ''), self.href_path)
+
+    def follow(self):
+        req = requests.get(self.href)
+
+        # TODO: parse the xml and generate catalogRefs, Datasets x 2
+
+
+class ParentDataset(object):
+    '''
+    a collection object, tagged as dataset, that can
+    contain catalogRefs, children datasets (likely terminal nodes)
+    or a metadata blob
+
+    this object won't have its own url
+    '''
+    def __init__(self, parent_url):
+        self.id = None
+        self.name = None
+        self.parent_url = parent_url
+
+        self.children = []
+
+    def __repr__(self):
+        return "<ParentDataset id: %s, name: %s>" % (self.id, self.name)
 
 
 class LeafDataset(object):
-    def __init__(self, dataset_url):
+    def __init__(self, dataset_url, estimate_size=False):
 
-        self.services    = []
-        self.id          = None
-        self.name        = None
-        self.metadata    = None
+        self.services = []
+        self.id = None
+        self.name = None
+        self.metadata = None
         self.catalog_url = None
-        self.data_size   = None
+        self.data_size = None
+        self.estimate_size = estimate_size
 
         # Get an etree object
         r = requests.get(dataset_url)
@@ -172,34 +214,64 @@ class LeafDataset(object):
                         # ISO like services need additional parameters
                         if s.get('name') in ["iso", "ncml", "uddc"]:
                             url += "?dataset=%s&catalog=%s" % (self.id, urllib.quote_plus(self.catalog_url))
-                        self.services.append( {'name' : s.get('name'), 'service' : s.get('serviceType'), 'url' : url } )
+                        self.services.append({'name': s.get('name'), 'service': s.get('serviceType'), 'url': url})
                 else:
                     url = construct_url(dataset_url, service.get('base')) + dataset.get("urlPath") + service.get("suffix", "")
                     # ISO like services need additional parameters
                     if s.get('name') in ["iso", "ncml", "uddc"]:
                             url += "?dataset=%s&catalog=%s" % (self.id, urllib.quote_plus(self.catalog_url))
-                    self.services.append( {'name' : service.get('name'), 'service' : service.get('serviceType'), 'url' : url } )
+                    self.services.append({'name': service.get('name'), 'service': service.get('serviceType'), 'url' : url})
+
+    def follow(self):
+        # TODO: run the head requests for the service + urlPath
+        #       hrefs to make sure they are valid requests
+        pass
+
+    @property
+    def href(self):
+        return urlparse.urljoin(
+            urlparse.urlunparse(
+                (
+                    parts.scheme,
+                    parts.netloc,
+                    '/'.join(url_paths[0:match_index + 1]),
+                    parts.params,
+                    parts.query,
+                    parts.fragment
+                )
+            ),
+            path
+        )
 
     @property
     def size(self):
         if self.data_size is not None:
             return self.data_size
-        try:
-            dap_endpoint = next(s.get("url") for s in self.services if s.get("service").lower() == "opendap")
-            # Get sizes from DDS
+
+        if self.estimate_size:
             try:
-                import netCDF4
-                nc = netCDF4.Dataset(dap_endpoint)
-                bites = 0
-                for vname in nc.variables:
-                    var = nc.variables.get(vname)
-                    bites += var.dtype.itemsize * var.size
-                return bites * 1e-6  # Megabytes
-            except ImportError:
-                logger.error("The python-netcdf4 library is required for computing the size of this dataset.")
-                return None
-        except StopIteration:
-            return None  # We can't calculate
+                dap_endpoint = next(s.get("url") for s in self.services
+                                    if s.get("service").lower() in ["opendap", "dap"])
+                # Get sizes from DDS
+                try:
+                    import netCDF4
+                    nc = netCDF4.Dataset(dap_endpoint)
+                    bites = 0
+                    for vname in nc.variables:
+                        var = nc.variables.get(vname)
+                        bites += var.dtype.itemsize * var.size
+                    return bites * 1e-6  # Megabytes
+                except ImportError:
+                    logger.error("The python-netcdf4 library is required for computing the size of this dataset.")
+                    return None
+            except StopIteration:
+                return None  # We can't calculate
+
+        return None
 
     def __repr__(self):
-        return "<LeafDataset id: %s, name: %s, services: %s>" % (self.id, self.name, str([s.get("service") for s in self.services]))
+        return "<LeafDataset id: %s, name: %s, services: %s>" % (
+            self.id,
+            self.name,
+            str([s.get("service") for s in self.services])
+        )

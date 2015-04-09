@@ -3,3 +3,6 @@
 dist
 build
 *.sublime*
+
+notebooks/.ipynb_checkpoints/*
+*-checkpoint.ipynb

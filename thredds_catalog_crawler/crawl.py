@@ -148,12 +148,88 @@ class Crawl(object):
                 yield "%s?dataset=%s" % (url, gid)
 
 
-class CatalogRef(object):
-    def __init_(self, parent_url, href_path):
+class CatalogElement(object):
+    def __init__(self, source_url):
+        self.source_url = source_url
+
+        self.id = None
+        self.name = None
+
+        self.follows = []
+
+        self.xml = self._parse_response()
+
+    @property
+    def href(self):
+        pass
+
+    def _parse_response(self):
+        req = requests.get(self.source_url)
+        if req.status_code != 200:
+            logger.error('Retrieval failed: %s (%s)' % (self.source_url, req.content))
+            return None
+
+        try:
+            # TODO: parser and encoding as needed
+            xml = etree.fromstring(req.content)
+        except:
+            logger.error('Failed to parse XML response (%s)' % self.source_url)
+            return None
+
+        return xml
+
+    def follow(self):
+
+        # get any catalogRef elements
+        catalog_refs = self.xml.xpath('//*[local-name()="catalogRef"]')
+        for catalog_ref in catalog_refs:
+            c = CatalogRef(self.source_url, catalog_ref)
+            self.catalogs.append(c)
+            self.follows += c.follows
+
+        # get any dataset elements
+        datasets = self.xml.xpath('//*[local-name()="dataset"]')
+        for dataset in datasets:
+            d = Dataset(self.source_url, dataset)
+            self.datasets.append(d)
+            self.follows += d.follows  # this can only be catalogrefs, fyi
+
+        # no idea what to do with these, but any metadata elements
+
+        # TODO: run through the urls
+
+
+class Dataset(object):
+    def __init_(self, parent_url, elem):
         self.id = None
         self.name = None
         self.parent_url = parent_url
-        self.href_path = href_path
+        self.elem = elem
+
+    def __repr__(self):
+        return "<Dataset id: %s, name: %s>" % (self.id, self.name)
+
+    def _parse_element(self):
+        '''
+        first, is it a bucket or a leaf?
+        if bucket, get children and carry on
+        if leaf, get endpoint and handle supported service list
+                 get children and carry on (related catalogs, etc)
+        '''
+        self.is_leaf = self.elem.xpath('*[local-name()="access"]/@urlPath or @urlPath')
+
+        # if it has children, get them and add to follows
+
+        # do not add the access url(s) to follows. this is the terminus
+
+
+class CatalogRef(object):
+    def __init_(self, parent_url, elem):
+        self.id = None
+        self.name = None
+        self.parent_url = parent_url
+        self.elem = elem
+        # self.href_path = href_path
 
     def __repr__(self):
         return "<CatalogRef id: %s, name: %s>" % (self.id, self.name)

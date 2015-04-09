@@ -14,7 +14,11 @@ This is a work in progress so bear with us.
 
 
 
-From the Original ASA Science Source (Thanks!)
+
+
+
+
+From the Original ASA Science Source (Thanks, Kyle Wilcox!)
 ----------------------------------------------
 
 A simple crawler/parser for THREDDS catalogs

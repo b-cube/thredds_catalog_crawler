@@ -4,7 +4,7 @@ import sys
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
-from thredds_crawler import __version__
+from thredds_catalog_crawler import __version__
 
 def readme():
     with open('README.md') as f:
@@ -23,14 +23,14 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 setup(
-    name                = "thredds_crawler",
+    name                = "thredds_catalog_crawler",
     version             = __version__,
-    description         = "A Python library for crawling THREDDS servers",
+    description         = "A Python library for crawling THREDDS Catalog Services",
     long_description    = readme(),
     license             = 'GPLv3',
-    author              = "Kyle Wilcox",
-    author_email        = "kwilcox@sasascience.com",
-    url                 = "https://github.com/asascience-open/thredds_crawler",
+    author              = "Soren Scott",
+    author_email        = "soren.scott@nsidc.org",
+    url                 = "https://github.com/b-cube/thredds_catalog_crawler",
     packages            = find_packages(),
     install_requires    = reqs,
     tests_require       = ['pytest'],

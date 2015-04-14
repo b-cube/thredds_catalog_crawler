@@ -1,0 +1,45 @@
+<catalog xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0.1">
+<service name="allServices" serviceType="Compound" base="">
+<service name="ncdods" serviceType="OPENDAP" base="/thredds/dodsC/"/>
+<service name="HTTPServer" serviceType="HTTPServer" base="/thredds/fileServer/"/>
+<service name="wcs" serviceType="WCS" base="/thredds/wcs/"/>
+<service name="ncss" serviceType="NetcdfSubset" base="/thredds/ncss/grid/"/>
+<service name="wms" serviceType="WMS" base="/thredds/wms/"/>
+<service name="iso" serviceType="ISO" base="/thredds/iso/"/>
+<service name="ncml" serviceType="NCML" base="/thredds/ncml/"/>
+<service name="uddc" serviceType="UDDC" base="/thredds/uddc/"/>
+</service>
+<dataset name="ARGO_MERCHANT" ID="TSdata/ARGO_MERCHANT">
+<metadata inherited="true">
+<serviceName>allServices</serviceName>
+<publisher>
+<name vocabulary="DIF">USGS/ER/WHCMSC/Ellyn Montgomery</name>
+<contact url="http://www.usgs.gov/" email="emontgomery@usgs.gov"/>
+</publisher>
+</metadata>
+<dataset name="1211-A1H.cdf" ID="TSdata/ARGO_MERCHANT/1211-A1H.cdf" urlPath="TSdata/ARGO_MERCHANT/1211-A1H.cdf">
+<dataSize units="Kbytes">12.18</dataSize>
+<date type="modified">2014-12-02T20:32:46Z</date>
+</dataset>
+<dataset name="1211-AA.cdf" ID="TSdata/ARGO_MERCHANT/1211-AA.cdf" urlPath="TSdata/ARGO_MERCHANT/1211-AA.cdf">
+<dataSize units="Kbytes">78.76</dataSize>
+<date type="modified">2014-12-02T20:32:46Z</date>
+</dataset>
+<dataset name="1211P-A.cdf" ID="TSdata/ARGO_MERCHANT/1211P-A.cdf" urlPath="TSdata/ARGO_MERCHANT/1211P-A.cdf">
+<dataSize units="Kbytes">262.8</dataSize>
+<date type="modified">2014-12-02T20:32:46Z</date>
+</dataset>
+<dataset name="1211P-A1H.cdf" ID="TSdata/ARGO_MERCHANT/1211P-A1H.cdf" urlPath="TSdata/ARGO_MERCHANT/1211P-A1H.cdf">
+<dataSize units="Kbytes">31.18</dataSize>
+<date type="modified">2014-12-02T20:32:46Z</date>
+</dataset>
+<dataset name="1211TR-A.cdf" ID="TSdata/ARGO_MERCHANT/1211TR-A.cdf" urlPath="TSdata/ARGO_MERCHANT/1211TR-A.cdf">
+<dataSize units="Kbytes">292.0</dataSize>
+<date type="modified">2014-12-02T20:32:47Z</date>
+</dataset>
+<dataset name="1211TR-A1H.cdf" ID="TSdata/ARGO_MERCHANT/1211TR-A1H.cdf" urlPath="TSdata/ARGO_MERCHANT/1211TR-A1H.cdf">
+<dataSize units="Kbytes">41.11</dataSize>
+<date type="modified">2014-12-02T20:32:47Z</date>
+</dataset>
+</dataset>
+</catalog>

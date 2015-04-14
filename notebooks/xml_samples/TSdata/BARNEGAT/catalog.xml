@@ -1,0 +1,130 @@
+<catalog xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0.1">
+<service name="allServices" serviceType="Compound" base="">
+<service name="ncdods" serviceType="OPENDAP" base="/thredds/dodsC/"/>
+<service name="HTTPServer" serviceType="HTTPServer" base="/thredds/fileServer/"/>
+<service name="wcs" serviceType="WCS" base="/thredds/wcs/"/>
+<service name="ncss" serviceType="NetcdfSubset" base="/thredds/ncss/grid/"/>
+<service name="wms" serviceType="WMS" base="/thredds/wms/"/>
+<service name="iso" serviceType="ISO" base="/thredds/iso/"/>
+<service name="ncml" serviceType="NCML" base="/thredds/ncml/"/>
+<service name="uddc" serviceType="UDDC" base="/thredds/uddc/"/>
+</service>
+<dataset name="BARNEGAT" ID="TSdata/BARNEGAT">
+<dataset name="9611ecp-a.nc" ID="TSdata/BARNEGAT/9611ecp-a.nc" urlPath="TSdata/BARNEGAT/9611ecp-a.nc">
+<dataSize units="Kbytes">188.2</dataSize>
+<date type="modified">2014-12-02T20:32:47Z</date>
+</dataset>
+<dataset name="9612solot-a.nc" ID="TSdata/BARNEGAT/9612solot-a.nc" urlPath="TSdata/BARNEGAT/9612solot-a.nc">
+<dataSize units="Kbytes">927.4</dataSize>
+<date type="modified">2014-12-02T20:32:47Z</date>
+</dataset>
+<dataset name="9613HRaqd-cal.nc" ID="TSdata/BARNEGAT/9613HRaqd-cal.nc" urlPath="TSdata/BARNEGAT/9613HRaqd-cal.nc">
+<dataSize units="Mbytes">14.68</dataSize>
+<date type="modified">2014-12-02T20:32:48Z</date>
+</dataset>
+<dataset name="9614dw-a.nc" ID="TSdata/BARNEGAT/9614dw-a.nc" urlPath="TSdata/BARNEGAT/9614dw-a.nc">
+<dataSize units="Mbytes">332.2</dataSize>
+<date type="modified">2014-12-02T20:32:58Z</date>
+</dataset>
+<dataset name="9615exo-a.nc" ID="TSdata/BARNEGAT/9615exo-a.nc" urlPath="TSdata/BARNEGAT/9615exo-a.nc">
+<dataSize units="Kbytes">983.1</dataSize>
+<date type="modified">2014-12-02T20:32:58Z</date>
+</dataset>
+<dataset name="9616ecp-a.nc" ID="TSdata/BARNEGAT/9616ecp-a.nc" urlPath="TSdata/BARNEGAT/9616ecp-a.nc">
+<dataSize units="Kbytes">43.75</dataSize>
+<date type="modified">2014-12-02T20:32:58Z</date>
+</dataset>
+<dataset name="9617solot-a.nc" ID="TSdata/BARNEGAT/9617solot-a.nc" urlPath="TSdata/BARNEGAT/9617solot-a.nc">
+<dataSize units="Kbytes">927.4</dataSize>
+<date type="modified">2014-12-02T20:32:58Z</date>
+</dataset>
+<dataset name="9621dw-a.nc" ID="TSdata/BARNEGAT/9621dw-a.nc" urlPath="TSdata/BARNEGAT/9621dw-a.nc">
+<dataSize units="Mbytes">331.3</dataSize>
+<date type="modified">2014-12-02T20:33:08Z</date>
+</dataset>
+<dataset name="9622ecn-a.nc" ID="TSdata/BARNEGAT/9622ecn-a.nc" urlPath="TSdata/BARNEGAT/9622ecn-a.nc">
+<dataSize units="Kbytes">188.5</dataSize>
+<date type="modified">2014-12-02T20:33:08Z</date>
+</dataset>
+<dataset name="9631ecp-a.nc" ID="TSdata/BARNEGAT/9631ecp-a.nc" urlPath="TSdata/BARNEGAT/9631ecp-a.nc">
+<dataSize units="Kbytes">251.7</dataSize>
+<date type="modified">2014-12-02T20:33:08Z</date>
+</dataset>
+<dataset name="9632solot-a.nc" ID="TSdata/BARNEGAT/9632solot-a.nc" urlPath="TSdata/BARNEGAT/9632solot-a.nc">
+<dataSize units="Mbytes">1.244</dataSize>
+<date type="modified">2014-12-02T20:33:08Z</date>
+</dataset>
+<dataset name="9633HRaqd-cal.nc" ID="TSdata/BARNEGAT/9633HRaqd-cal.nc" urlPath="TSdata/BARNEGAT/9633HRaqd-cal.nc">
+<dataSize units="Mbytes">19.65</dataSize>
+<date type="modified">2014-12-02T20:33:09Z</date>
+</dataset>
+<dataset name="9634dw-a.nc" ID="TSdata/BARNEGAT/9634dw-a.nc" urlPath="TSdata/BARNEGAT/9634dw-a.nc">
+<dataSize units="Mbytes">446.3</dataSize>
+<date type="modified">2014-12-02T20:33:22Z</date>
+</dataset>
+<dataset name="9635exo-a.nc" ID="TSdata/BARNEGAT/9635exo-a.nc" urlPath="TSdata/BARNEGAT/9635exo-a.nc">
+<dataSize units="Mbytes">1.315</dataSize>
+<date type="modified">2014-12-02T20:33:23Z</date>
+</dataset>
+<dataset name="9636ecp-a.nc" ID="TSdata/BARNEGAT/9636ecp-a.nc" urlPath="TSdata/BARNEGAT/9636ecp-a.nc">
+<dataSize units="Kbytes">251.7</dataSize>
+<date type="modified">2014-12-02T20:33:23Z</date>
+</dataset>
+<dataset name="9637solot-a.nc" ID="TSdata/BARNEGAT/9637solot-a.nc" urlPath="TSdata/BARNEGAT/9637solot-a.nc">
+<dataSize units="Mbytes">1.244</dataSize>
+<date type="modified">2014-12-02T20:33:23Z</date>
+</dataset>
+<dataset name="9641dw-a.nc" ID="TSdata/BARNEGAT/9641dw-a.nc" urlPath="TSdata/BARNEGAT/9641dw-a.nc">
+<dataSize units="Mbytes">445.9</dataSize>
+<date type="modified">2014-12-02T20:33:36Z</date>
+</dataset>
+<dataset name="9642ecn-a.nc" ID="TSdata/BARNEGAT/9642ecn-a.nc" urlPath="TSdata/BARNEGAT/9642ecn-a.nc">
+<dataSize units="Kbytes">233.5</dataSize>
+<date type="modified">2014-12-02T20:33:36Z</date>
+</dataset>
+<dataset name="9771ecp-a.nc" ID="TSdata/BARNEGAT/9771ecp-a.nc" urlPath="TSdata/BARNEGAT/9771ecp-a.nc">
+<dataSize units="Kbytes">212.6</dataSize>
+<date type="modified">2014-12-02T20:33:36Z</date>
+</dataset>
+<dataset name="9772solot-a.nc" ID="TSdata/BARNEGAT/9772solot-a.nc" urlPath="TSdata/BARNEGAT/9772solot-a.nc">
+<dataSize units="Mbytes">1.339</dataSize>
+<date type="modified">2014-12-02T20:33:36Z</date>
+</dataset>
+<dataset name="9773HRaqdb-cal.nc" ID="TSdata/BARNEGAT/9773HRaqdb-cal.nc" urlPath="TSdata/BARNEGAT/9773HRaqdb-cal.nc">
+<dataSize units="Mbytes">703.2</dataSize>
+<date type="modified">2014-12-02T20:33:57Z</date>
+</dataset>
+<dataset name="9773HRaqds-cal.nc" ID="TSdata/BARNEGAT/9773HRaqds-cal.nc" urlPath="TSdata/BARNEGAT/9773HRaqds-cal.nc">
+<dataSize units="Mbytes">14.27</dataSize>
+<date type="modified">2014-12-02T20:33:58Z</date>
+</dataset>
+<dataset name="9774dw-a.nc" ID="TSdata/BARNEGAT/9774dw-a.nc" urlPath="TSdata/BARNEGAT/9774dw-a.nc">
+<dataSize units="Mbytes">480.7</dataSize>
+<date type="modified">2014-12-02T20:34:13Z</date>
+</dataset>
+<dataset name="9774dw_trim.nc" ID="TSdata/BARNEGAT/9774dw_trim.nc" urlPath="TSdata/BARNEGAT/9774dw_trim.nc">
+<dataSize units="Mbytes">480.7</dataSize>
+<date type="modified">2014-12-02T20:34:28Z</date>
+</dataset>
+<dataset name="9775exo-a.nc" ID="TSdata/BARNEGAT/9775exo-a.nc" urlPath="TSdata/BARNEGAT/9775exo-a.nc">
+<dataSize units="Mbytes">1.415</dataSize>
+<date type="modified">2014-12-02T20:34:28Z</date>
+</dataset>
+<dataset name="9776ecp-a.nc" ID="TSdata/BARNEGAT/9776ecp-a.nc" urlPath="TSdata/BARNEGAT/9776ecp-a.nc">
+<dataSize units="Kbytes">267.6</dataSize>
+<date type="modified">2014-12-02T20:34:28Z</date>
+</dataset>
+<dataset name="9777solot-a.nc" ID="TSdata/BARNEGAT/9777solot-a.nc" urlPath="TSdata/BARNEGAT/9777solot-a.nc">
+<dataSize units="Mbytes">1.339</dataSize>
+<date type="modified">2014-12-02T20:34:28Z</date>
+</dataset>
+<dataset name="9781dw-a.nc" ID="TSdata/BARNEGAT/9781dw-a.nc" urlPath="TSdata/BARNEGAT/9781dw-a.nc">
+<dataSize units="Mbytes">480.0</dataSize>
+<date type="modified">2014-12-02T20:34:43Z</date>
+</dataset>
+<dataset name="9782ecn-a.nc" ID="TSdata/BARNEGAT/9782ecn-a.nc" urlPath="TSdata/BARNEGAT/9782ecn-a.nc">
+<dataSize units="Kbytes">228.5</dataSize>
+<date type="modified">2014-12-02T20:34:43Z</date>
+</dataset>
+</dataset>
+</catalog>

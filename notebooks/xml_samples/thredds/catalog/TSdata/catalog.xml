@@ -1,0 +1,16 @@
+<catalog xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0.1">
+<service name="allServices" serviceType="Compound" base="">
+<service name="ncdods" serviceType="OPENDAP" base="/thredds/dodsC/"/>
+<service name="HTTPServer" serviceType="HTTPServer" base="/thredds/fileServer/"/>
+<service name="wcs" serviceType="WCS" base="/thredds/wcs/"/>
+<service name="ncss" serviceType="NetcdfSubset" base="/thredds/ncss/grid/"/>
+<service name="wms" serviceType="WMS" base="/thredds/wms/"/>
+<service name="iso" serviceType="ISO" base="/thredds/iso/"/>
+<service name="ncml" serviceType="NCML" base="/thredds/ncml/"/>
+<service name="uddc" serviceType="UDDC" base="/thredds/uddc/"/>
+</service>
+<dataset name="Times Series Data" ID="TSdata">
+<catalogRef xlink:href="ARGO_MERCHANT/catalog.xml" xlink:title="ARGO_MERCHANT" ID="TSdata/ARGO_MERCHANT" name=""/>
+<catalogRef xlink:href="BARNEGAT/catalog.xml" xlink:title="BARNEGAT" ID="TSdata/BARNEGAT" name=""/>
+</dataset>
+</catalog>

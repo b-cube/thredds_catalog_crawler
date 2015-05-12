@@ -148,55 +148,31 @@ class Crawl(object):
                 yield "%s?dataset=%s" % (url, gid)
 
 
-class CatalogElement(object):
-    def __init__(self, source_url):
-        self.source_url = source_url
-
+class CatalogRef(object):
+    def __init__(self, source_url, element):
         self.id = None
         self.name = None
+        self.parent_url = source_url
+        self.elem = element
 
-        self.follows = []
-
-        self.xml = self._parse_response()
 
     @property
     def href(self):
-        pass
+        return 
 
-    def _parse_response(self):
-        req = requests.get(self.source_url)
-        if req.status_code != 200:
-            logger.error('Retrieval failed: %s (%s)' % (self.source_url, req.content))
-            return None
+    def _parse(self):
+        # extract everything from the node
+        name = self.element.attrib.get('name', '')
+        cat_id = self.element.attrib.get('ID', '')
+        title = self.element.attrib.get('title', '')
+        href = self.element.attrib.get('{http://www.w3.org/1999/xlink}href', '')
+        tag = extract_element_tag(self.element.tag)
+        
+        # get the parent 
+        parent = self.element.getparent()
+        parent_tag = extract_element_tag(parent.tag)
+        parent_id = parent.attrib.get('ID', '') if parent_tag != 'catalog' else ''
 
-        try:
-            # TODO: parser and encoding as needed
-            xml = etree.fromstring(req.content)
-        except:
-            logger.error('Failed to parse XML response (%s)' % self.source_url)
-            return None
-
-        return xml
-
-    def follow(self):
-
-        # get any catalogRef elements
-        catalog_refs = self.xml.xpath('//*[local-name()="catalogRef"]')
-        for catalog_ref in catalog_refs:
-            c = CatalogRef(self.source_url, catalog_ref)
-            self.catalogs.append(c)
-            self.follows += c.follows
-
-        # get any dataset elements
-        datasets = self.xml.xpath('//*[local-name()="dataset"]')
-        for dataset in datasets:
-            d = Dataset(self.source_url, dataset)
-            self.datasets.append(d)
-            self.follows += d.follows  # this can only be catalogrefs, fyi
-
-        # no idea what to do with these, but any metadata elements
-
-        # TODO: run through the urls
 
 
 class Dataset(object):

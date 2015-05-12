@@ -1,6 +1,9 @@
 thredds_catalog_crawler
 =======================
 
+Note: Current work limited to a prototype under notebooks/XML Iterator (file based).ipynb.
+
+
 An expanded crawler for THREDDS Catalog Services. Our focus is on capturing the entire catalog service tree starting from any node within it. 
 
 Planned revisions:

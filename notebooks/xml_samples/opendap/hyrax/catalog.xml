@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <thredds:catalog xmlns:fn="http://www.w3.org/2005/02/xpath-functions"
+                 xmlns:thredds="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 xmlns:bes="http://xml.opendap.org/ns/bes/1.0#">
+   <thredds:service name="dap" serviceType="OPeNDAP" base="/opendap/hyrax"/>
+   <thredds:service name="file" serviceType="HTTPServer" base="/opendap/hyrax"/>
+        <thredds:dataset name="/" ID="/opendap/hyrax/">
+            <thredds:catalogRef name="Nimbus7_TOMS_Level3" xlink:href="Nimbus7_TOMS_Level3/catalog.xml"
+                          xlink:title="Nimbus7_TOMS_Level3"
+                          xlink:type="simple"
+                          ID="/opendap/hyrax/Nimbus7_TOMS_Level3/"/>
+            <thredds:catalogRef name="Catalog" xlink:href="Catalog/catalog.xml" xlink:title="Catalog" xlink:type="simple" ID="/opendap/hyrax/Catalog/"/>
+        </thredds:dataset>
+    </thredds:catalog>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <thredds:catalog xmlns:fn="http://www.w3.org/2005/02/xpath-functions"
+                 xmlns:thredds="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 xmlns:bes="http://xml.opendap.org/ns/bes/1.0#">
+   <thredds:service name="dap" serviceType="OPeNDAP" base="/opendap/hyrax"/>
+   <thredds:service name="file" serviceType="HTTPServer" base="/opendap/hyrax"/>
+        <thredds:dataset name="/Nimbus7_TOMS_Level3/TOMSN7L3zref.008"
+                    ID="/opendap/hyrax/Nimbus7_TOMS_Level3/TOMSN7L3zref.008/">
+            <thredds:dataset name="TOMSN7L3zref_19781101_19930506.tar.gz"
+                       ID="/opendap/hyrax/Nimbus7_TOMS_Level3/TOMSN7L3zref.008/TOMSN7L3zref_19781101_19930506.tar.gz">
+         <thredds:dataSize units="bytes">604211</thredds:dataSize>
+         <thredds:date type="modified">2011-02-24T21:04:34</thredds:date>
+         <thredds:access serviceName="file"
+                         urlPath="/Nimbus7_TOMS_Level3/TOMSN7L3zref.008/TOMSN7L3zref_19781101_19930506.tar.gz"/>
+      </thredds:dataset>
+        </thredds:dataset>
+    </thredds:catalog>

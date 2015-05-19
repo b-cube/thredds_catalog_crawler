@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thredds:catalog xmlns:fn="http://www.w3.org/2005/02/xpath-functions"
+             xmlns:thredds="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"
+             xmlns:xlink="http://www.w3.org/1999/xlink"
+             xmlns:bes="http://xml.opendap.org/ns/bes/1.0#">
+    <thredds:service name="dap" serviceType="OPeNDAP" base="/opendap/hyrax"/>
+    <thredds:service name="file" serviceType="HTTPServer" base="/opendap/hyrax"/>
+    <thredds:dataset name="/Nimbus7_TOMS_Level3/TOMSN7L3dery.008/1981"
+                ID="/opendap/hyrax/Nimbus7_TOMS_Level3/TOMSN7L3dery.008/1981/">
+        <thredds:dataset name="L3_eryln_n7t_19810101.txt"
+                           ID="/opendap/hyrax/Nimbus7_TOMS_Level3/TOMSN7L3dery.008/1981/L3_eryln_n7t_19810101.txt">
+             <thredds:dataSize units="bytes">162783</thredds:dataSize>
+             <thredds:date type="modified">2011-02-24T15:15:35</thredds:date>
+             <thredds:access serviceName="file"
+                             urlPath="/Nimbus7_TOMS_Level3/TOMSN7L3dery.008/1981/L3_eryln_n7t_19810101.txt"/>
+          </thredds:dataset>
+        <thredds:dataset name="L3_eryln_n7t_19810102.txt"
+                   ID="/opendap/hyrax/Nimbus7_TOMS_Level3/TOMSN7L3dery.008/1981/L3_eryln_n7t_19810102.txt">
+             <thredds:dataSize units="bytes">162783</thredds:dataSize>
+             <thredds:date type="modified">2011-02-24T15:15:35</thredds:date>
+             <thredds:access serviceName="file"
+                             urlPath="/Nimbus7_TOMS_Level3/TOMSN7L3dery.008/1981/L3_eryln_n7t_19810102.txt"/>
+          </thredds:dataset>
+        <thredds:dataset name="L3_eryln_n7t_19810103.txt"
+                   ID="/opendap/hyrax/Nimbus7_TOMS_Level3/TOMSN7L3dery.008/1981/L3_eryln_n7t_19810103.txt">
+             <thredds:dataSize units="bytes">162783</thredds:dataSize>
+             <thredds:date type="modified">2011-02-24T15:15:36</thredds:date>
+             <thredds:access serviceName="file"
+                             urlPath="/Nimbus7_TOMS_Level3/TOMSN7L3dery.008/1981/L3_eryln_n7t_19810103.txt"/>
+          </thredds:dataset>
+     </thredds:dataset>
+</thredds:catalog>
